@@ -1,0 +1,201 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f4f4f4;
+}
+
+.container {
+  width: 100%;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #2c3e50;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header h1 {
+  font-size: 32px;
+}
+
+/* Menu Styles */
+.menu {
+  display: flex;
+  gap: 10px;
+}
+
+.menu button {
+  padding: 10px 20px;
+  background-color: #34495e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.menu button:hover {
+  background-color: #3e5c76;
+}
+
+.menu button.active {
+  background-color: #3498db;
+}
+
+/* Main Content Styles */
+.main-content {
+  padding: 20px;
+  width: 100%;
+}
+
+.section {
+  display: none;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.section.active {
+  display: block;
+}
+
+.section h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.section p {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.section a {
+  color: #3498db;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.section a:hover {
+  text-decoration: underline;
+}
+
+/* Styles for the Add Manager Form */
+.add-manager-form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.add-manager-form h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.add-manager-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-manager-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  color: #333;
+}
+
+.add-manager-form input,
+.add-manager-form select {
+  margin-top: 5px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.add-manager-form button {
+  padding: 10px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 150px;
+}
+
+.add-manager-form button:hover {
+  background-color: #2980b9;
+}
+
+/* Styles for the Final Report */
+.final-report {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Styles for the Export Buttons */
+.export-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.export-buttons button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.export-buttons button:hover {
+  background-color: #2980b9;
+}
+
+/* Styles for the Charts Container */
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.chart-wrapper {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 300px;
+  max-width: 350px;
+  text-align: center;
+}
