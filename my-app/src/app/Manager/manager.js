@@ -1,4 +1,5 @@
 "use client";
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import html2canvas from "html2canvas";
@@ -7,7 +8,7 @@ import * as XLSX from "xlsx";
 import * as Papa from "papaparse";
 import "./manager.css";
 
-export default function Dashboard({ userRole = "manager" }) {
+export default function Manager({ userRole = "manager" }) {
   // Mock data for branches and receipts
   const initialBranchData = {
     branch1: {
@@ -26,9 +27,10 @@ export default function Dashboard({ userRole = "manager" }) {
     },
   };
 
+  // Updated mock data for receipts to match Receipt Control fields
   const initialReceipts = [
-    { amount: "$500", receiptID: "R001", salesAgentID: "SA01", buyerID: "B001", procedure: "Cash" },
-    { amount: "$300", receiptID: "R002", salesAgentID: "SA02", buyerID: "B002", procedure: "Credit" },
+    { receiptID: "R001", amountPaid: "$500", salesAgentName: "Agent 1", buyerName: "Buyer 1" },
+    { receiptID: "R002", amountPaid: "$300", salesAgentName: "Agent 2", buyerName: "Buyer 2" },
   ];
 
   // State for dynamic data
@@ -43,6 +45,7 @@ export default function Dashboard({ userRole = "manager" }) {
     { metric: "Procurement Costs", value: initialBranchData.branch1.procurementCosts },
   ]);
   const [loading, setLoading] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   const dashboardRef = useRef(null);
 
@@ -77,7 +80,6 @@ export default function Dashboard({ userRole = "manager" }) {
     const value = dataTable[index].value;
     alert(`Saved: ${metric} = ${value}`);
 
-    // Update the local branchData state
     const updatedBranchData = { ...branchData };
     if (metric === "Sales Trends") updatedBranchData[selectedBranch].salesTrends = value;
     if (metric === "Profit Margin") updatedBranchData[selectedBranch].profitMargin = value;
@@ -85,6 +87,23 @@ export default function Dashboard({ userRole = "manager" }) {
     if (metric === "Procurement Costs") updatedBranchData[selectedBranch].procurementCosts = value;
     setBranchData(updatedBranchData);
     setMetrics(updatedBranchData[selectedBranch]);
+  };
+
+  // Toggle dropdown visibility
+  const toggleDropdown = (section) => {
+    setOpenDropdown(openDropdown === section ? null : section);
+  };
+
+  // Save receipt data from Receipt Control dropdown
+  const saveReceipt = (receiptData) => {
+    const newReceipt = {
+      receiptID: receiptData.receiptID,
+      amountPaid: receiptData.amountPaid,
+      salesAgentName: receiptData.salesAgentName,
+      buyerName: receiptData.buyerName,
+    };
+    setReceipts([...receipts, newReceipt]);
+    alert("Receipt Control Saved");
   };
 
   // Export to PDF
@@ -157,36 +176,114 @@ export default function Dashboard({ userRole = "manager" }) {
           ))}
         </select>
 
-        {/* Data Input Section (Managers Only) */}
+        {/* Dropdown Buttons for Different Sections */}
         {userRole === "manager" && (
           <>
-            <h2>Data Input</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Metric</th>
-                  <th>Value</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dataTable.map((row, index) => (
-                  <tr key={index}>
-                    <td>{row.metric}</td>
-                    <td
-                      contentEditable
-                      onBlur={(e) => handleValueChange(index, e.target.textContent)}
-                      suppressContentEditableWarning={true}
-                    >
-                      {row.value}
-                    </td>
-                    <td>
-                      <button onClick={() => saveRow(index)}>Save</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <h2>Data Input Sections</h2>
+
+            {/* Stock Management */}
+            <div>
+              <button onClick={() => toggleDropdown("stockManagement")}>
+                Stock Management {openDropdown === "stockManagement" ? "▲" : "▼"}
+              </button>
+              {openDropdown === "stockManagement" && (
+                <div className="dropdown-content">
+                  <label>Product Name: <input type="text" placeholder="Enter Product Name" /></label><br />
+                  <label>Product ID: <input type="text" placeholder="Enter Product ID" /></label><br />
+                  <label>Tonnage Sold: <input type="text" placeholder="Enter Tonnage Sold" /></label><br />
+                  <label>Tonnage Bought: <input type="text" placeholder="Enter Tonnage Bought" /></label><br />
+                  <label>Current Tonnage: <input type="text" placeholder="Enter Current Tonnage" /></label><br />
+                  <button onClick={() => alert("Stock Management Saved")}>Save</button>
+                </div>
+              )}
+            </div>
+
+            {/* Sales Management */}
+            <div>
+              <button onClick={() => toggleDropdown("salesManagement")}>
+                Sales Management {openDropdown === "salesManagement" ? "▲" : "▼"}
+              </button>
+              {openDropdown === "salesManagement" && (
+                <div className="dropdown-content">
+                  <label>Sales ID: <input type="text" placeholder="Enter Sales ID" /></label><br />
+                  <label>Product Name: <input type="text" placeholder="Enter Product Name" /></label><br />
+                  <label>Tonnage: <input type="text" placeholder="Enter Tonnage" /></label><br />
+                  <label>Amount Paid: <input type="text" placeholder="Enter Amount Paid" /></label><br />
+                  <label>Buyer’s Name: <input type="text" placeholder="Enter Buyer’s Name" /></label><br />
+                  <label>Sales Agent Name: <input type="text" placeholder="Enter Sales Agent Name" /></label><br />
+                  <label>Rate: <input type="text" placeholder="Enter Rate" /></label><br />
+                  <label>Time: <input type="text" placeholder="Enter Time" /></label><br />
+                  <label>Buyer Contact: <input type="text" placeholder="Enter Buyer Contact" /></label><br />
+                  <button onClick={() => alert("Sales Management Saved")}>Save</button>
+                </div>
+              )}
+            </div>
+
+            {/* Receipt Control */}
+            <div>
+              <button onClick={() => toggleDropdown("receiptControl")}>
+                Receipt Control {openDropdown === "receiptControl" ? "▲" : "▼"}
+              </button>
+              {openDropdown === "receiptControl" && (
+                <div className="dropdown-content">
+                  <label>Receipt ID: <input id="receiptID" type="text" placeholder="Enter Receipt ID" /></label><br />
+                  <label>Amount Paid: <input id="amountPaid" type="text" placeholder="Enter Amount Paid" /></label><br />
+                  <label>Sales Agent Name: <input id="salesAgentName" type="text" placeholder="Enter Sales Agent Name" /></label><br />
+                  <label>Buyer’s Name: <input id="buyerName" type="text" placeholder="Enter Buyer’s Name" /></label><br />
+                  <button
+                    onClick={() => {
+                      const receiptData = {
+                        receiptID: document.getElementById("receiptID").value,
+                        amountPaid: document.getElementById("amountPaid").value,
+                        salesAgentName: document.getElementById("salesAgentName").value,
+                        buyerName: document.getElementById("buyerName").value,
+                      };
+                      saveReceipt(receiptData);
+                    }}
+                  >
+                    Save
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Credit/Sale */}
+            <div>
+              <button onClick={() => toggleDropdown("creditSale")}>
+                Credit/Sale {openDropdown === "creditSale" ? "▲" : "▼"}
+              </button>
+              {openDropdown === "creditSale" && (
+                <div className="dropdown-content">
+                  <label>Buyer’s Name: <input type="text" placeholder="Enter Buyer’s Name" /></label><br />
+                  <label>Amount Due: <input type="text" placeholder="Enter Amount Due" /></label><br />
+                  <label>Location: <input type="text" placeholder="Enter Location" /></label><br />
+                  <label>Due Date: <input type="text" placeholder="Enter Due Date" /></label><br />
+                  <label>Product ID: <input type="text" placeholder="Enter Product ID" /></label><br />
+                  <button onClick={() => alert("Credit/Sale Saved")}>Save</button>
+                </div>
+              )}
+            </div>
+
+            {/* Data */}
+            <div>
+              <button onClick={() => toggleDropdown("data")}>
+                Data {openDropdown === "data" ? "▲" : "▼"}
+              </button>
+              {openDropdown === "data" && (
+                <div className="dropdown-content">
+                  <label>Product ID: <input type="text" placeholder="Enter Product ID" /></label><br />
+                  <label>Product Name: <input type="text" placeholder="Enter Product Name" /></label><br />
+                  <label>Type: <input type="text" placeholder="Enter Type" /></label><br />
+                  <label>Date: <input type="text" placeholder="Enter Date" /></label><br />
+                  <label>Time: <input type="text" placeholder="Enter Time" /></label><br />
+                  <label>Tonnage Cost: <input type="text" placeholder="Enter Tonnage Cost" /></label><br />
+                  <label>Branch/Contact: <input type="text" placeholder="Enter Branch/Contact" /></label><br />
+                  <label>Dealer Note: <input type="text" placeholder="Enter Dealer Note" /></label><br />
+                  <label>Selling Price: <input type="text" placeholder="Enter Selling Price" /></label><br />
+                  <button onClick={() => alert("Data Saved")}>Save</button>
+                </div>
+              )}
+            </div>
           </>
         )}
 
@@ -229,21 +326,19 @@ export default function Dashboard({ userRole = "manager" }) {
         <table>
           <thead>
             <tr>
-              <th>Amount</th>
-              <th>ReceiptID</th>
-              <th>SalesAgentID</th>
-              <th>BuyerID</th>
-              <th>Procedure</th>
+              <th>Receipt ID</th>
+              <th>Amount Paid</th>
+              <th>Sales Agent Name</th>
+              <th>Buyer’s Name</th>
             </tr>
           </thead>
           <tbody>
             {receipts.map((receipt, index) => (
               <tr key={index}>
-                <td>{receipt.amount}</td>
                 <td>{receipt.receiptID}</td>
-                <td>{receipt.salesAgentID}</td>
-                <td>{receipt.buyerID}</td>
-                <td>{receipt.procedure}</td>
+                <td>{receipt.amountPaid}</td>
+                <td>{receipt.salesAgentName}</td>
+                <td>{receipt.buyerName}</td>
               </tr>
             ))}
           </tbody>

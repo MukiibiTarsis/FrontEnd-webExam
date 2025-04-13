@@ -52,6 +52,64 @@ h2 {
   margin: 20px 0 10px;
 }
 
+/* Dropdown button styling */
+button {
+  padding: 8px 16px;
+  background-color: #834e1965;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #773f1c;
+}
+
+/* Dropdown content styling */
+.dropdown-content {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  background-color: #f5f2f0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-content label {
+  display: block;
+  margin: 10px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.dropdown-content input {
+  margin-left: 10px;
+  padding: 6px;
+  width: 220px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+.dropdown-content input:focus {
+  outline: none;
+  border-color: #5a390b;
+}
+
+.dropdown-content button {
+  background-color: #6d461d;
+  margin-top: 10px;
+}
+
+.dropdown-content button:hover {
+  background-color: #773f1c;
+}
+
 /* Data input table */
 table {
   width: 100%;
@@ -197,6 +255,11 @@ table:last-of-type {
   }
 
   .export-buttons button {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .dropdown-content input {
     width: 100%;
     max-width: 200px;
   }
