@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #aba383; /* Replace white spaces with this color */
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #cdbd7f; /* Replace white spaces with this color */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.background-container {
+    position: relative;
+    background-image: url('https://images.pexels.com/photos/10112128/pexels-photo-10112128.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load'); /* Replace with your desired image URL */
+    background-size: cover;
+    background-position: center;
+    padding: 40px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: white; /* Ensure text is readable on the image */
+}
+
+.background-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent overlay for better text visibility */
+    border-radius: 8px;
+    z-index: 1;
+}
+
+.header {
+    position: relative;
+    z-index: 2; /* Ensure text is above the overlay */
+}
+
+.header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.header .tagline {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #fef3c7; /* Light text color for readability */
+}
+
+.introduction {
+    position: relative;
+    z-index: 2; /* Ensure text is above the overlay */
+    color: #fef3c7; /* Light text color for readability */
+    margin-top: 20px;
+    text-align: center;
+}
+
+.introduction h2 {
+    font-size: 2rem;
+    color: #f8f5e8; /* Light text color for headings */
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.introduction p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #fef3c7; /* Light text color for readability */
+    margin: 0 auto;
+    
+}
+
+.activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Dynamically adjust columns */
+    gap: 20px;
+    padding: 20px;
+    background-color: #dbcd96; /* Match the new background color */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.activity-card {
+    background-color: #f7df80; /* Slightly lighter background for the cards */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+.activity-card:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.activity-card img {
+    width: 100%;
+    height: 180px; /* Resize images for consistency */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.activity-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: #d97706; /* Orange for headings */
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.activity-card p {
+    font-size: 0.9rem;
+    color: #92400e; /* Dark orange for descriptions */
+    margin-bottom: 10px;
+}
+
+.login-button {
+    background-color: #d97706; /* Orange button for consistency */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #b45309; /* Darker orange on hover */
+    color: white;
+}
