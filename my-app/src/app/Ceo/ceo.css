@@ -146,7 +146,7 @@ body {
 }
 
 .add-manager-form button:hover {
-  background-color: #2980b9;
+  background-color: #5e3312;
 }
 
 /* Styles for the Final Report */
@@ -199,3 +199,40 @@ body {
   max-width: 350px;
   text-align: center;
 }
+/* .report-generator {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.report-generator h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.report-generator label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.report-generator select,
+.report-generator button {
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.report-generator button {
+  background: #553411;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.report-generator button:hover {
+  background: #6d1d0f83;
+} */
