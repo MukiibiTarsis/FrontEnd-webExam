@@ -7,7 +7,7 @@ import './login.css';
 const Login = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    email: '',
+    username: '', // Changed from email to username
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +29,7 @@ const Login = () => {
     setError('');
 
     try {
-      if (formData.email && formData.password) {
+      if (formData.username && formData.password) { // Changed from email to username
         // TODO: Implement actual authentication logic
         await new Promise(resolve => setTimeout(resolve, 1000));
         router.push('/dashboard');
@@ -60,16 +60,16 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
             <label className="form-label">
-              Email Address
+              Username
             </label>
             <div className="input-group">
               <input
-                type="email"
-                name="email"
-                value={formData.email}
+                type="text" // Changed input type from email to text
+                name="username" // Changed from email to username
+                value={formData.username} // Changed from formData.email to formData.username
                 onChange={handleChange}
                 className="form-input"
-                placeholder="Enter your email"
+                placeholder="Enter your username" // Updated placeholder
                 required
               />
             </div>
@@ -100,16 +100,6 @@ const Login = () => {
           </div>
 
           <div className="form-options">
-            <div className="remember-me">
-              <input
-                type="checkbox"
-                id="remember"
-                className="checkbox-input"
-              />
-              <label htmlFor="remember" className="checkbox-label">
-                Remember me
-              </label>
-            </div>
             <a href="#" className="forgot-password">
               Forgot password?
             </a>
@@ -137,4 +127,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;
